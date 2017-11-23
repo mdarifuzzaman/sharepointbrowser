@@ -1,0 +1,36 @@
+<style>
+  thead, tbody, tr, td, th { display: block; }
+</style>
+<div>  
+  <table>
+    <tbody>
+      <tr>
+        <td>
+            <ul>
+                <li *ngFor="let site of sites" (click)="clickSite(site, $event)">
+                    <a onclick="return false" href="">{{site.displayName}}</a>
+                  <ul>
+                    <li *ngFor="let subsite of site.sites" (click)="clickSite(subsite, $event)">
+                        <a onclick="return false" href="">{{subsite.displayName}}</a>
+                    </li>
+                  </ul>
+                </li>
+            </ul>    
+        </td>
+        <td>
+            <div id="listArea">
+                <ul>
+                  <li *ngFor="let list of lists">{{list.displayName}}</li>
+                </ul>
+              </div>
+        </td>
+        <td>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+  
