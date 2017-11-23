@@ -13,6 +13,7 @@ export class DashoboardComponent implements OnInit {
   public lists = [];
   public sites = [];
   public columns = [];
+  public listItems = [];
   public displayName = "";
   public createdDate = "";
   public modifiedDate = "";
@@ -37,6 +38,7 @@ export class DashoboardComponent implements OnInit {
       let sites = data.value;
       site.sites = [];
       this.columns = [];
+      this.listItems = [];
       sites.forEach(element => {
         site.sites.push(element);
       });
@@ -52,6 +54,7 @@ export class DashoboardComponent implements OnInit {
       let lists = data.value;
       this.lists = [];
       this.columns = [];
+      this.listItems = [];
       lists.forEach(element => {
         this.lists.push(element);
       });
@@ -63,8 +66,23 @@ export class DashoboardComponent implements OnInit {
       console.log(response);
       let body = JSON.parse(response._body);
       this.columns = [];
+      this.listItems = [];
       body.columns.forEach(element => {
         this.columns.push(element);
+      });
+    }).catch(error=>{
+      console.log(error);
+    });
+  }
+
+  getList(list){
+    this.authService.getList(this.selectedSite.id, list.id).then(response=>{
+      console.log(response);
+      let body = JSON.parse(response._body);
+      this.columns = [];
+      this.listItems = [];
+      body.items.forEach(element => {
+        this.listItems.push(element);
       });
     }).catch(error=>{
       console.log(error);

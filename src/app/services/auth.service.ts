@@ -60,9 +60,16 @@ export class AuthService{
     });
   }
 
-  public getListSchema(siteId, listId):Promise<any>{
+  public getListData(siteId, listId, withSchema:boolean):Promise<any>{    
     return new Promise<any>((resolve, reject) =>{
-        let url = 'https://graph.microsoft.com/v1.0/sites/' + siteId + "/lists/" + listId + "?expand=columns";
+        var schemaPrefix = "?expand=columns";
+        var url = 'https://graph.microsoft.com/v1.0/sites/' + siteId + "/lists/" + listId ;
+        if(withSchema == true){
+            url = url + schemaPrefix;
+        }        
+        else{
+            url = url + '?expand=items';
+        }
         let headers = new Headers();
         headers.set('Content-Type', 'application/json');
         headers.append('Authorization', 'bearer ' + localStorage.getItem("token"));
@@ -73,6 +80,14 @@ export class AuthService{
             reject(error);
         });
     });
+  }
+
+  public getListSchema(siteId, listId):Promise<any>{ 
+      return this.getListData(siteId, listId, true);
+  }
+
+  public getList(siteId, listId):Promise<any>{
+    return this.getListData(siteId, listId, false);
   }
 
   public getSubSites(id):Promise<any>{

@@ -21,7 +21,8 @@
             <div id="listArea" style="text-align:left; margin-top:5px;">
                 <ul>
                   <li *ngFor="let list of lists">
-                    <a onclick="return false" href="" (click)="getListSchema(list)">{{list.displayName}}</a>
+                    <a onclick="return false" href="" (click)="getList(list)">{{list.displayName}}</a>
+                    <a onclick="return false" href="" (click)="getListSchema(list)">[View Schema]</a>
                   </li>
                 </ul>
               </div>
@@ -49,6 +50,28 @@
                 </tr>
               </tbody>
             </table>
+
+            <table style="text-align:left; margin-top:5px;" *ngIf="listItems.length > 0">
+                <thead>
+                  <tr style="background-color:cornflowerblue">
+                    <td>CreatedBy</td>
+                    <td>Id</td>
+                    <td>Last Modified Date</td>
+                    <td>Last Modified By</td>
+                    <td>Web URL</td>                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of listItems">
+                    <td>{{item.createdBy.user.displayName}}</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.lastModifiedDateTime}}</td>                  
+                    <td>{{item.lastModifiedBy.user.displayName}}</td>
+                    <td>{{item.webUrl}}</td>                    
+                  </tr>
+                </tbody>
+              </table>
+
         </td>
       </tr>
     </tbody>
