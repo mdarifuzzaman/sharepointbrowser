@@ -60,6 +60,21 @@ export class AuthService{
     });
   }
 
+  public getListSchema(siteId, listId):Promise<any>{
+    return new Promise<any>((resolve, reject) =>{
+        let url = 'https://graph.microsoft.com/v1.0/sites/' + siteId + "/lists/" + listId + "?expand=columns";
+        let headers = new Headers();
+        headers.set('Content-Type', 'application/json');
+        headers.append('Authorization', 'bearer ' + localStorage.getItem("token"));
+        let headersArgs:any = {headers};
+        this.http.get(url, headersArgs).toPromise().then(response=>{
+            resolve(response);
+        }).catch(error=>{
+            reject(error);
+        });
+    });
+  }
+
   public getSubSites(id):Promise<any>{
     return new Promise<any>((resolve, reject) =>{
         let url = 'https://graph.microsoft.com/v1.0/sites/' + id + '/sites';

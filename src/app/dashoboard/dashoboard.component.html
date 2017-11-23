@@ -1,12 +1,12 @@
 <style>
-  thead, tbody, tr, td, th { display: block; }
+ 
 </style>
 <div>  
-  <table>
+  <table width="100%">
     <tbody>
       <tr>
-        <td>
-            <ul>
+        <td style="padding:5px;float:left">
+            <ul style="text-align:left; margin-top:5px;">
                 <li *ngFor="let site of sites" (click)="clickSite(site, $event)">
                     <a onclick="return false" href="">{{site.displayName}}</a>
                   <ul>
@@ -17,15 +17,38 @@
                 </li>
             </ul>    
         </td>
-        <td>
-            <div id="listArea">
+        <td style="padding:5px;float:left">
+            <div id="listArea" style="text-align:left; margin-top:5px;">
                 <ul>
-                  <li *ngFor="let list of lists">{{list.displayName}}</li>
+                  <li *ngFor="let list of lists">
+                    <a onclick="return false" href="" (click)="getListSchema(list)">{{list.displayName}}</a>
+                  </li>
                 </ul>
               </div>
         </td>
-        <td>
-
+        <td style="padding:5px;float:left">          
+            <table style="text-align:left; margin-top:5px;" *ngIf="columns.length > 0">
+              <thead>
+                <tr style="background-color:cornflowerblue">
+                  <td>Name</td>
+                  <td>DisplayName</td>
+                  <td>Description</td>
+                  <td>ReadOnly?</td>
+                  <td>Required?</td>
+                  <td>Indexed?</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let col of columns">
+                  <td>{{col.name}}</td>
+                  <td>{{col.displayName}}</td>
+                  <td>{{col.description}}</td>                  
+                  <td>{{col.readOnly}}</td>
+                  <td>{{col.required}}</td>
+                  <td>{{col.indexed}}</td>
+                </tr>
+              </tbody>
+            </table>
         </td>
       </tr>
     </tbody>
